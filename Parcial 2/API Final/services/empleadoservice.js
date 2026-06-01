@@ -27,4 +27,12 @@ const insertarEmpleado = async (datosEmpleado) => {
     };
 };
 
-module.exports = { obtenerTodosLosEmpleados, insertarEmpleado };
+const eliminarEmpleado = async (id) => {
+    const query = 'DELETE FROM empleado WHERE id_empleado = ?';
+    const [result] = await pool.query(query, [id]);
+    
+    // affectedRows será 1 si se borró, o 0 si el ID no existía
+    return result.affectedRows; 
+};
+
+module.exports = { obtenerTodosLosEmpleados, insertarEmpleado, eliminarEmpleado };

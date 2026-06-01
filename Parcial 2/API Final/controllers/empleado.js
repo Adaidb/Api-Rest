@@ -30,4 +30,22 @@ const createEmpleado = async (req, res) => {
     }
 };
 
-module.exports = { getEmpleados, createEmpleado };
+const deleteEmpleado = async (req, res) => {
+    const { id } = req.params;
+
+    try {
+        const filasAfectadas = await empleadoService.eliminarEmpleado(id);
+        
+        // Si no se afectó ninguna fila, el empleado no existía
+        if (filasAfectadas === 0) {
+            return res.status(404).json({ error: 'Empleado no encontrado' });
+        }
+
+        res.status(200).json({ message: `Empleado con ID ${id} eliminado exitosamente` });
+    } catch (error) {
+        console.error("Error en deleteEmpleado:", error);
+        res.status(500).json({ error: 'Error interno al eliminar el empleado' });
+    }
+};
+
+module.exports = { getEmpleados, createEmpleado, deleteEmpleado  };

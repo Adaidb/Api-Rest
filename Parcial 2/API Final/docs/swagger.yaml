@@ -33,6 +33,32 @@ paths:
           description: Empleado creado exitosamente.
         '400':
           description: Faltan datos obligatorios.
+  /empleados/{id}:
+    delete:
+      summary: Eliminar un empleado
+      description: Elimina de forma permanente el registro de un empleado utilizando su ID.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: El ID único del empleado a eliminar.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Empleado eliminado exitosamente.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Empleado con ID 1 eliminado exitosamente"
+        '404':
+          description: Empleado no encontrado.
+        '500':
+          description: Error interno del servidor.
 components:
   schemas:
     Empleado:
