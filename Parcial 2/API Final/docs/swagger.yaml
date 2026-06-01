@@ -1,0 +1,98 @@
+openapi: 3.0.3
+info:
+  title: API de Recursos Humanos (BD en Railway)
+  version: 1.0.0
+  description: API REST para la gestión de empleados.
+servers:
+  - url: /api
+paths:
+  /empleados:
+    get:
+      summary: Obtener todos los empleados
+      description: Retorna una lista de todos los empleados en la base de datos.
+      responses:
+        '200':
+          description: Lista obtenida exitosamente.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Empleado'
+    post:
+      summary: Registrar un nuevo empleado
+      description: Crea un empleado asociándolo a un departamento y sucursal.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmpleadoInput'
+      responses:
+        '201':
+          description: Empleado creado exitosamente.
+        '400':
+          description: Faltan datos obligatorios.
+components:
+  schemas:
+    Empleado:
+      type: object
+      properties:
+        id_empleado:
+          type: integer
+        nombre:
+          type: string
+        apellidos:
+          type: string
+        fecha_ingreso:
+          type: string
+          format: date
+        fecha_nacimiento:
+          type: string
+          format: date
+        correo:
+          type: string
+        telefono:
+          type: string
+        sueldo_diario:
+          type: string
+        id_departamento:
+          type: integer
+        id_sucursal:
+          type: integer
+    EmpleadoInput:
+      type: object
+      required:
+        - nombre
+        - apellidos
+        - correo
+      properties:
+        nombre:
+          type: string
+          example: "Adai"
+        apellidos:
+          type: string
+          example: "Diaz"
+        fecha_ingreso:
+          type: string
+          format: date
+          example: "2026-01-15"
+        fecha_nacimiento:
+          type: string
+          format: date
+          example: "1998-04-23"
+        correo:
+          type: string
+          example: "adai.diaz@empresa.com"
+        telefono:
+          type: string
+          example: "8671234567"
+        sueldo_diario:
+          type: number
+          example: 500.00
+        id_departamento:
+          type: integer
+          example: 1
+        id_sucursal:
+          type: integer
+          example: 1
